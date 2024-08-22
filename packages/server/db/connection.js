@@ -1,22 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
-function newGame() {
-  return {
-    gameId: uuid(),
-    board: '_________',
-    turn: 'x'
-  };
-}
-
 export default class Connection {
   constructor() {
     // this is a "database" connection, we'll use a Map for now
     this.db = new Map();
     // dummy data
     this.db.set('game:1', {
-      gameId: 1,
-      board: '_________',
-      turn: 'x'
+      gameId: 1
     });
   }
 

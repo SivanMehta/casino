@@ -1,7 +1,6 @@
 import React from 'react';
-import Context from './constants.jsx';
 import Landing from './pages/Landing.jsx';
-import Game from './pages/Game.jsx';
+import Roulette from './pages/roulette/index.jsx';
 import Error from './pages/Error.jsx';
 
 import {
@@ -16,11 +15,19 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/game/:gameId",
-    element: <Game />,
+    path: "/roulette/",
+    element: <Roulette />,
     errorElement: <Error />,
   },
 ]);
+
+function Context({ children }) {
+  return (
+    <>
+      { children }
+    </>
+  )
+}
 
 function App() {
   return (

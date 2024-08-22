@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 function Landing () {
   return (
     <>
-      <h1>Tic Tac Toe!</h1>
+      <h1>Casino</h1>
       <ul>
-        <li><Link to="/game/new">New Game</Link></li>
+        <li><Link to="/roulette">New Game</Link></li>
         <li><Link to="/faq">FAQ</Link></li>
       </ul>
     </>

@@ -1,26 +1,20 @@
-text {
-  fill: white;
-  font: 100px monospace;
-  text-anchor: middle;
-}
-
+/* Roulette */
 rect {
   stroke: white;
 }
 
-.cell {
-  fill: rgba(0,0,0,0);
+rect.felt {
+  fill: forestgreen;
 }
 
-.strikethrough {
-  fill: red;
-  stroke: none;
+rect.red {
+  fill: red
 }
 
-.right {
-  transform: rotate(-45deg);
+rect.black {
+  fill: black;
 }
 
-.left {
-  transform: translateX(360px) rotate(45deg);
+text {
+  fill: white;
 }
