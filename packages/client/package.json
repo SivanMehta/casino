@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "tic-tac-toe client assets",
+  "scripts": {
+    "build": "rspack build",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "postinstall": "npm run build"
+  },
+  "author": "Sivan Mehta",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^0.1.10"
+  }
+}
