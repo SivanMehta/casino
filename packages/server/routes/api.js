@@ -1,19 +1,20 @@
 export function addRoutes(app) {
-  app.get('/api/game/:gameId', async (req, res) => {
-    const { gameId } = req.params;
+  app.post('/login', async (req, res) => {
+    const { id } = req.params;
+    const { username, password } = req.body;
 
-    const data = await app.db.get('game', gameId);
-
-    if(!data) {
-      return res.status(404).json({ error: 'Game not found' }) 
+    console.log(username, password);
+    const user = await app.db.get('user', `${username}`);
+    if(!user) {
+      return res.status(401).json({ error: 'User not found' }) 
     }
 
-    res.json(data);
-  });
+    if(user.password !== password) {
+      return res.status(403).json({ error: 'Incorrect Credentials'})
+    }
 
-  app.get('/api/games', async (req, res) => {
-    const data = await app.db.getAllGames();
-
-    res.json(data);
+    // set auth cookie
+    // redirect to home page
+    res.json(user);
   });
 }

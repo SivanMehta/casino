@@ -7,7 +7,7 @@ export default function Roulette() {
   return (
     <>
       <BettingArea />
-      {/* <Wheel /> */}
+      <Wheel />
     </>
   )
 }

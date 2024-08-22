@@ -14,5 +14,7 @@ export function setup(app) {
   });
   
   app.db = new Connection();
+  app.use(express.json())
+  app.use(express.urlencoded());
   addRoutes(app);
 }

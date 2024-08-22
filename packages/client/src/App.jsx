@@ -1,7 +1,9 @@
 import React from 'react';
 import Landing from './pages/Landing.jsx';
+import Login from './pages/Login.jsx';
 import Roulette from './pages/roulette/index.jsx';
 import Error from './pages/Error.jsx';
+import { useUser } from './hooks/useUser.js';
 
 import {
   createBrowserRouter,
@@ -22,9 +24,17 @@ const router = createBrowserRouter([
 ]);
 
 function Context({ children }) {
+  const user = useUser();
+  if(!user) {
+    return <Login />
+  };
+
   return (
     <>
       { children }
+      <pre>
+        { JSON.stringify(user, null, 2) }
+      </pre>
     </>
   )
 }
