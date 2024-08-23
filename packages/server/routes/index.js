@@ -1,20 +1,19 @@
 import express from 'express';
+import cookies from 'cookie-parser';
 import path from 'path';
 
 import Connection from '../db/connection.js';
-import { routes as UIRoutes } from './ui.js';
-import { addRoutes } from './api.js';
+import { addRoutes } from './ui.js';
 
 export function setup(app) {
-  const staticDirectory = path.join('..', 'client', 'dist');
-  
-  const UIRouter = express.static(staticDirectory);
-  UIRoutes.forEach(route => {
-    app.use(route, UIRouter)
-  });
-  
+  // setting db and websockets
   app.db = new Connection();
+
+  // middleware
   app.use(express.json())
   app.use(express.urlencoded());
+  app.use(cookies());
+
+  // application level routes
   addRoutes(app);
 }

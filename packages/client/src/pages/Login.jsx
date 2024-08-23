@@ -7,7 +7,7 @@ function login(formData) {
   alert(`Logging in with, ${user} ${password}`)
 }
 
-export default function Login () {
+export function Login () {
   return (
     <>
       <h1>Login</h1>
@@ -25,5 +25,11 @@ export default function Login () {
         </form>
       </div>
     </>
+  )
+}
+
+export function Logout() {
+  return (
+    <a href='/logout'>Logout</a>
   )
 }

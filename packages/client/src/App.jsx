@@ -1,6 +1,6 @@
 import React from 'react';
 import Landing from './pages/Landing.jsx';
-import Login from './pages/Login.jsx';
+import { Login, Logout } from './pages/Login.jsx';
 import Roulette from './pages/roulette/index.jsx';
 import Error from './pages/Error.jsx';
 import { useUser } from './hooks/useUser.js';
@@ -35,6 +35,7 @@ function Context({ children }) {
       <pre>
         { JSON.stringify(user, null, 2) }
       </pre>
+      <Logout />
     </>
   )
 }
