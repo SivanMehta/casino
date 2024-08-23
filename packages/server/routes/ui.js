@@ -1,9 +1,10 @@
 import express from 'express';
 import path from 'path';
-import { encrypt, generateError } from '../db/auth.js';
+import { encrypt } from '../db/auth.js';
 
 export const UIRoutes = [
   '/',
+  '/login',
   '/roulette',
   '/faq'
 ];
@@ -21,11 +22,11 @@ export function addRoutes(app) {
 
     const user = await app.db.get('user', `${username}`);
     if(!user) {
-      return generateError(res, 401)
+      return res.redirect("/?error=401");
     }
 
     if(user.password !== password) {
-      return generateError(res, 403)
+      return res.redirect("/?error=403");
     }
 
     // set auth cookie

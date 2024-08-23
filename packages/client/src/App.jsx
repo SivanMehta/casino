@@ -33,7 +33,7 @@ function Context({ children }) {
     <>
       { children }
       <pre>
-        { JSON.stringify(user, null, 2) }
+        { JSON.stringify(JSON.parse(atob(user)), null, 2) }
       </pre>
       <Logout />
     </>

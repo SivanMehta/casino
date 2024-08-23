@@ -18,3 +18,7 @@ rect.black {
 text {
   fill: white;
 }
+
+p.red {
+  color: red;
+}
