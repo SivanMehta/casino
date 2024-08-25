@@ -1,9 +1,9 @@
 import React from 'react';
 import Landing from './pages/Landing.jsx';
-import { Login, Logout } from './pages/Login.jsx';
+import { Logout } from './pages/Login.jsx';
 import Roulette from './pages/roulette/index.jsx';
 import Error from './pages/Error.jsx';
-import { useUser } from './hooks/useUser.js';
+import { UserProvider } from './hooks/useUser.jsx';
 
 import {
   createBrowserRouter,
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 ]);
 
 function Context({ children }) {
-  const user = useUser();
+  const { user } = useUser();
   if(!user) {
     return <Login />
   };
@@ -35,7 +35,7 @@ function Context({ children }) {
       <pre>
         { JSON.stringify(JSON.parse(atob(user)), null, 2) }
       </pre>
-      <Logout />
+      <a href="/">Home</a> | <Logout />
     </>
   )
 }
@@ -43,9 +43,9 @@ function Context({ children }) {
 function App() {
   return (
     <React.StrictMode>
-      <Context>
+      <UserProvider>
         <RouterProvider router={router} />
-      </Context>
+      </UserProvider>
     </React.StrictMode>
   )
 }

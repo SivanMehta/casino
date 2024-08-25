@@ -2,12 +2,12 @@ import express from 'express';
 import { WebSocketServer } from 'ws';
 import morgan from 'morgan';
 import { createServer } from 'http';
-import { setup as setupHTTPRoutes } from './routes/index.js';
+import { setup as setupAPIRoutes } from './api/index.js';
 import { setup as setupWebSocket } from './db/socket.js'
 
 const app = express();
 app.use(morgan('dev'));
-setupHTTPRoutes(app);
+setupAPIRoutes(app);
 
 const server = createServer(app);
 const wss = new WebSocketServer({ server });

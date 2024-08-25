@@ -1,5 +1,5 @@
-function decrypt(auth) {
-  return atob(auth);
+export function decrypt(auth) {
+  return JSON.parse(atob(auth));
 }
 
 export function encrypt(user) {

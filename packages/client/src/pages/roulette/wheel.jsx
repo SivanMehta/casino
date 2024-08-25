@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function Wheel() {
-  return (
-    <h1>Da Wheel</h1>
-  )
+export default function Wheel({ spinning }) {
+  if(spinning) {
+    return "Wheeeee!"
+  }
+
+  return "Not Spinning"
 }

@@ -14,6 +14,10 @@ export default class Connection {
     return this.db.get(`${key}:${id}`);
   }
 
+  async set(key, value) {
+    this.db.set(key, value);
+  }
+
   async getAllGames() {
     return Object.fromEntries(this.db);
   }

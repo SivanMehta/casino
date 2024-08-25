@@ -10,7 +10,7 @@ export const UIRoutes = [
 ];
 
 
-export function addRoutes(app) {
+export function addUIRoutes(app) {
   const staticDirectory = path.join('..', 'client', 'dist');
   const UIRouter = express.static(staticDirectory);
   UIRoutes.forEach(route => {

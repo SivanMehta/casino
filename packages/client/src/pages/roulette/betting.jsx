@@ -13,13 +13,14 @@ function Bet({ value }) {
   )
 }
 
-export default function BettingArea() {
+export default function BettingArea({ spin }) {
   const [ bet, setBet ] = useState(false);
 
   return (
     <>
       <Table onClick={setBet}/>
       <Bet value={bet} />
+      <button onClick={() => spin(10)}>Spin Roulette</button>
     </>
   )
 }
