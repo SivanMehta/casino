@@ -1,6 +1,6 @@
-# Tic Tac Toe
+# Casino
 
-This is an attempt for me to practice my UI development and build a basic game server with web sockets. I may or may not try to deploy it somewhere.
+This is an attempt for me to practice my development and build a basic game server. I may or may not try to deploy it somewhere.
 
 ## Install Dependencies
 

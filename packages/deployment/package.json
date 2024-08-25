@@ -1,0 +1,14 @@
+{
+  "name": "deployment",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deployment resources for the casino",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "Sivan Mehta",
+  "license": "UNLICENSED",
+  "dependencies": {}
+}

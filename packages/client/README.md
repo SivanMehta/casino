@@ -1,4 +1,4 @@
-Tic tac toe client. Also help from [rspack] and [pico]
+Casino client. Also help from [rspack] and [pico]
 
 ## Run build locally
 

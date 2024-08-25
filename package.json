@@ -11,6 +11,7 @@
   "license": "UNLICENSED",
   "workspaces": [
     "packages/client",
-    "packages/server"
+    "packages/server",
+    "packages/deployment"
   ]
 }
