@@ -19,4 +19,9 @@ export function setup(app) {
   addUIRoutes(app);
   addGameRoutes(app);
 
+  // debugging routes
+  app.get("/_debug", (req, res) => {
+    const dump = Object.fromEntries(app.db.db);
+    res.send(dump);
+  });
 }
