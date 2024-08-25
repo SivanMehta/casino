@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUser } from '../../hooks/useUser';
 import Table from './table.jsx';
 
 function Bet({ value }) {
@@ -14,13 +15,16 @@ function Bet({ value }) {
 }
 
 export default function BettingArea({ spin }) {
-  const [ bet, setBet ] = useState(false);
+  const [ bet, setBet ] = useState(10);
+  const [ user ] = useUser();
+
+  const disabled = bet > user.balance;
 
   return (
     <>
       <Table onClick={setBet}/>
       <Bet value={bet} />
-      <button onClick={() => spin(10)}>Spin Roulette</button>
+      <button onClick={() => spin(10)} disabled={disabled}>Spin Roulette</button>
     </>
   )
 }

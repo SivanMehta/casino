@@ -10,6 +10,10 @@ export default function Roulette() {
   const [ user, setUser ] = useUser();
 
   async function spin(amount) {
+    if(amount > user.balance) {
+      return;
+    }
+
     setSpinning(true);
     const res = await fetch('/roulette', {
       method: 'POST',
@@ -17,8 +21,13 @@ export default function Roulette() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    const updatedUser = await res.json();
+    });
+    let updatedUser;
+    if(res.ok) {
+      updatedUser = await res.json();
+    } else {
+      console.error(await res.status);
+    }
 
     setUser(updatedUser);
     setSpinning(false);

@@ -7,7 +7,7 @@ export function addGameRoutes(app) {
     const bet = req.body;
 
     if (user.balance < bet.amount) {
-      res.sendStatus(402);
+      return res.sendStatus(402);
     }
 
     const outcome = spinWheel(bet);
