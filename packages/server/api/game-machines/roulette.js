@@ -28,5 +28,5 @@ export function spinWheel(bet) {
   // generate 0 to 39, 39 is 00
   const result = Math.round(Math.random() * 39);
   const wager = new Wager(bet);
-  return { result, payout: wager.payout(result) }
+  return { result, winnings: wager.payout(result) }
 }
