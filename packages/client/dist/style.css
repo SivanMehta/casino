@@ -28,3 +28,23 @@ text {
   text-anchor: middle;
   pointer-events: none;
 }
+
+.wheel {
+  width: 3rem;
+  font-size: 3rem;
+  transform-origin: center center;
+}
+
+.spin {
+  animation: 5s ease spin;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(3600deg);
+  }
+}

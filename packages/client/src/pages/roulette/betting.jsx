@@ -10,21 +10,55 @@ function Bet({ value }) {
   }
 
   return (
-    <p>{value}</p>
+    <p>{JSON.stringify(value, null, 2)}</p>
   )
 }
 
-export default function BettingArea({ spin }) {
-  const [ bet, setBet ] = useState(10);
-  const [ user ] = useUser();
+function ChipDirection({ enabled, onChange }) {
 
-  const disabled = bet > user.balance;
+  const label = enabled ? "Adding Chips" : "Removing Chips"
+
+  return (
+    <div>
+      <input
+        type="checkbox"
+        name="adding"
+        checked={enabled}
+        onChange={ () => onChange(!enabled) }/>
+      <label htmlFor="adding">{label}</label>
+    </div>
+  )
+}
+
+export default function BettingArea({ spin, spinning }) {
+  const [ bet, setBet ] = useState({});
+  const [ user ] = useUser();
+  const [ adding, setAdding ] = useState(true);
+
+  const disabled = !bet || spinning || (bet > user.balance);
+
+  function mutateBet(value) {
+    let wager = bet;
+    const direction = adding ? 1 : -1;
+
+    if(wager[value]) {
+      // place/remove chips
+      wager[value] += direction;
+    } else {
+      // either create or bottom out a pile that doesn't exist
+      wager[value] = adding ? direction : 0;
+    }
+
+    console.log(wager);
+    setBet(wager);
+  }
 
   return (
     <>
-      <Table onClick={setBet}/>
+      <Table onClick={mutateBet}/>
+      <ChipDirection enabled={adding} onChange={setAdding} />
       <Bet value={bet} />
-      <button onClick={() => spin(10)} disabled={disabled}>Spin Roulette</button>
+      <button onClick={() => spin(bet)} disabled={disabled}>Spin Roulette</button>
     </>
   )
 }

@@ -9,33 +9,36 @@ export default function Roulette() {
   const [ spinning, setSpinning ] = useState(false);
   const [ user, setUser ] = useUser();
 
-  async function spin(amount) {
-    if(amount > user.balance) {
-      return;
-    }
+  async function spin(wager) {
+    const total = Object
+      .values(wager)
+      .reduce((acc, cur) => acc + cur, 0) * 10;
 
     setSpinning(true);
-    const res = await fetch('/roulette', {
-      method: 'POST',
-      body: JSON.stringify({ amount, on: 'black' }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let updatedUser;
+    const [, res] = await Promise.all([
+      // must take at least 1.5 seconds
+      timer(5000),
+      fetch('/roulette', {
+        method: 'POST',
+        body: JSON.stringify(wager),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    ]);
     if(res.ok) {
-      updatedUser = await res.json();
+      const { winnings } = await res.json();
+      setUser({ balance: user.balance + winnings });
     } else {
       console.error(await res.status);
     }
 
-    setUser(updatedUser);
     setSpinning(false);
   }
 
   return (
     <>
-      <BettingArea spin={ spin }/>
+      <BettingArea spin={ spin } spinning={ spinning }/>
       <Wheel spinning={spinning}/>
     </>
   )

@@ -56,8 +56,8 @@ export function UserProvider({ children }) {
   }
 
   const userData = userFromString(auth);
-  function setUser(user) {
-    setAuth(stringFromUser(user));
+  function setUser(update) {
+    setAuth(stringFromUser({ ...userData, ...update}));
   }
 
   return (
@@ -66,8 +66,11 @@ export function UserProvider({ children }) {
     ]}>
       { children }
       <pre>
-          { JSON.stringify(userData, null, 2)}
+        { JSON.stringify(userData, null, 2)}
       </pre>
+      <div>
+        <a href="/">Home</a> | <a href="/logout">Logout</a>
+      </div>
     </UserContext.Provider>
   )
 }

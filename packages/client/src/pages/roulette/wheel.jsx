@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default function Wheel({ spinning }) {
-  if(spinning) {
-    return "Wheeeee!"
-  }
+  const className = 'wheel' + (spinning ? ' spin' : '');
 
-  return "Not Spinning"
+  return (
+    <p className={ className }>🍩</p>
+  )
 }
