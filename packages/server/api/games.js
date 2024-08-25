@@ -15,12 +15,12 @@ export function addGameRoutes(app) {
       return res.sendStatus(402);
     }
 
-    const winnings = spinWheel(wager);
+    const {result, winnings} = spinWheel(wager);
     user.balance += winnings;
     app.db.set(`user:${user.username}`, user);
 
     res.cookie('auth', encrypt(user));
-    res.send({ winnings });
+    res.send({ result, winnings });
   });
 
 }

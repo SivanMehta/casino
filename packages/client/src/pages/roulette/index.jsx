@@ -8,6 +8,7 @@ import { useUser } from '../../hooks/useUser.jsx';
 export default function Roulette() {
   const [ spinning, setSpinning ] = useState(false);
   const [ user, setUser ] = useUser();
+  const [ value, setValue ] = useState(0);
 
   async function spin(wager) {
     const total = Object
@@ -27,7 +28,8 @@ export default function Roulette() {
       })
     ]);
     if(res.ok) {
-      const { winnings } = await res.json();
+      const { winnings, result } = await res.json();
+      setValue(result);
       setUser({ balance: user.balance + winnings });
     } else {
       console.error(await res.status);
@@ -39,7 +41,7 @@ export default function Roulette() {
   return (
     <>
       <BettingArea spin={ spin } spinning={ spinning }/>
-      <Wheel spinning={spinning}/>
+      <Wheel spinning={spinning} value={value}/>
     </>
   )
 }

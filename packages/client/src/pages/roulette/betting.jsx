@@ -10,7 +10,10 @@ function Bet({ value }) {
   }
 
   return (
-    <p>{JSON.stringify(value, null, 2)}</p>
+    <div>
+      <pre>{JSON.stringify(value, null, 2)}</pre>
+      <p>${ 10 * Object.values(value).reduce((acc, cur) => acc + cur, 0)}</p>
+    </div>
   )
 }
 
@@ -32,6 +35,7 @@ function ChipDirection({ enabled, onChange }) {
 
 export default function BettingArea({ spin, spinning }) {
   const [ bet, setBet ] = useState({});
+  const [ tick, setTick ] = useState(1);
   const [ user ] = useUser();
   const [ adding, setAdding ] = useState(true);
 
@@ -41,16 +45,25 @@ export default function BettingArea({ spin, spinning }) {
     let wager = bet;
     const direction = adding ? 1 : -1;
 
-    if(wager[value]) {
+    if(bet[value]) {
       // place/remove chips
       wager[value] += direction;
+      if(wager[value] == 0) {
+        delete wager[value];
+      }
     } else {
-      // either create or bottom out a pile that doesn't exist
-      wager[value] = adding ? direction : 0;
+      // create a pile that doesn't exist
+      if(adding) {
+        wager[value] = direction;
+      }
     }
 
-    console.log(wager);
     setBet(wager);
+    setTick(tick + 1);
+  }
+
+  function resetBet () {
+    setBet({});
   }
 
   return (
@@ -59,6 +72,7 @@ export default function BettingArea({ spin, spinning }) {
       <ChipDirection enabled={adding} onChange={setAdding} />
       <Bet value={bet} />
       <button onClick={() => spin(bet)} disabled={disabled}>Spin Roulette</button>
+      <button onClick={resetBet}>Reset Wager</button>
     </>
   )
 }

@@ -11,11 +11,16 @@ class Wager {
     // lost
     console.log(this.places);
 
-    const loss = Object
-    .values(this.places)
-    .reduce((acc, cur) => acc + cur, 0) * -10;
+    const totalChips = Object
+      .values(this.places)
+      .reduce((acc, cur) => acc + cur, 0) * 10;
 
-    return Math.random() > 0.5 ? 100 : loss;
+    if (Math.random() > 0.5) {
+      return totalChips; // double your money
+    }
+
+    // lose your bet
+    return -1 * totalChips;
   }
 }
 
@@ -23,5 +28,5 @@ export function spinWheel(bet) {
   // generate 0 to 39, 39 is 00
   const result = Math.round(Math.random() * 39);
   const wager = new Wager(bet);
-  return wager.payout(result);
+  return { result, payout: wager.payout(result) }
 }

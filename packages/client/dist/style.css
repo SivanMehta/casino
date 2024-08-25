@@ -30,8 +30,8 @@ text {
 }
 
 .wheel {
-  width: 3rem;
-  font-size: 3rem;
+  margin-left: 10rem;
+  width: 10rem;
   transform-origin: center center;
 }
 
@@ -45,6 +45,7 @@ text {
   }
 
   to {
+    /* derive from a CSS variable so that we can actually spin to the right place*/
     transform: rotate(3600deg);
   }
 }

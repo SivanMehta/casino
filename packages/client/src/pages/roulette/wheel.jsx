@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function Wheel({ spinning }) {
+export default function Wheel({ spinning, value }) {
   const className = 'wheel' + (spinning ? ' spin' : '');
 
   return (
-    <p className={ className }>🍩</p>
+    <div>
+      <img className={ className } src='roulette.jpg' />
+    </div>
   )
 }
