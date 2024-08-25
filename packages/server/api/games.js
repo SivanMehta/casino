@@ -3,20 +3,24 @@ import { spinWheel } from './game-machines/index.js';
 
 export function addGameRoutes(app) {
   app.post("/roulette", async (req, res) => {
-    const user = decrypt(req.cookies.auth);
-    const bet = req.body;
+    const {username} = decrypt(req.cookies.auth);
+    const user = await app.db.get('user', username);
+    const wager = req.body;
 
-    if (user.balance < bet.amount) {
+    const total = Object
+      .values(wager)
+      .reduce((acc, cur) => acc + cur, 0) * 10;
+
+    if (user.balance < total) {
       return res.sendStatus(402);
     }
 
-    const outcome = spinWheel(bet);
-    user.balance += outcome;
-
+    const winnings = spinWheel(wager);
+    user.balance += winnings;
     app.db.set(`user:${user.username}`, user);
-    res.cookie('auth', encrypt(user));
 
-    res.send(user);
+    res.cookie('auth', encrypt(user));
+    res.send({ winnings });
   });
 
 }
