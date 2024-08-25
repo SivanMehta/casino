@@ -16,6 +16,7 @@ npm start
 
 ## Directory Structure
 
-The repo is organized into 2 [`npm` workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces), which are located in the `packages` directory
+The repo is organized into 3 [`npm` workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces), which are located in the `packages` directory
   - `packages/client` - The client-side of the application that is served to browsers
+  - `packages/deployment` - Resources that define how this application is deployed
   - `packages/server` - The server-side of the application that governs game state
