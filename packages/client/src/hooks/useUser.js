@@ -23,7 +23,6 @@ function getCookie(cname) {
 export function useUser() {
   const [authorization, setAuthorization] = useState(false);
 
-  // replace localstorage with a cookie
   useState(async () => {
     const auth = getCookie('auth');
     if(!auth) {

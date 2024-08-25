@@ -15,10 +15,16 @@ rect.black {
   fill: black;
 }
 
-text {
-  fill: white;
+rect:hover {
+  cursor: pointer;
 }
 
 p.red {
   color: red;
+}
+
+text {
+  fill: white; font: 12px bold sans-serif;
+  text-anchor: middle;
+  pointer-events: none;
 }

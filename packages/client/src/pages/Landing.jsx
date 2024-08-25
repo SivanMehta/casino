@@ -6,7 +6,7 @@ function Landing () {
     <>
       <h1>Casino</h1>
       <ul>
-        <li><Link to="/roulette">New Game</Link></li>
+        <li><Link to="/roulette">Roulette</Link></li>
         <li><Link to="/faq">FAQ</Link></li>
       </ul>
     </>
