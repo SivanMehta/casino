@@ -23,23 +23,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-function Context({ children }) {
-  const { user } = useUser();
-  if(!user) {
-    return <Login />
-  };
-
-  return (
-    <>
-      { children }
-      <pre>
-        { JSON.stringify(JSON.parse(atob(user)), null, 2) }
-      </pre>
-      <a href="/">Home</a> | <Logout />
-    </>
-  )
-}
-
 function App() {
   return (
     <React.StrictMode>

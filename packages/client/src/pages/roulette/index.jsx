@@ -7,7 +7,7 @@ import { useUser } from '../../hooks/useUser.jsx';
 
 export default function Roulette() {
   const [ spinning, setSpinning ] = useState(false);
-  const { user, setUser } = useUser();
+  const [ user, setUser ] = useUser();
 
   async function spin(amount) {
     setSpinning(true);
