@@ -95,7 +95,7 @@ export function determineInsideBet(bet) {
   }
 
   const size = places.filter(Boolean).length;
-  if(size > 5) return 0;
+  if(size > 6) return 0;
   return insideBetPayouts[size];
 }
 
@@ -126,8 +126,11 @@ export class Wager {
 }
 
 export function spinWheel(bet) {
-  // generate 0 to 39, 39 is 00
-  const result = Math.round(Math.random() * 39);
+  // 37 is 00
+  let result = Math.round(Math.random() * 37);
+  if(result == 37) {
+    result = '00';
+  }
   const wager = new Wager(bet);
   return { result, winnings: wager.payout(result) * 10 }
 }
