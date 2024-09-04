@@ -8,10 +8,6 @@
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SivanMehta/casino.git"
-  },
   "author": "Sivan Mehta",
   "license": "UNLICENSED",
   "dependencies": {

@@ -9,7 +9,6 @@ export const UIRoutes = [
   '/faq'
 ];
 
-
 export function addUIRoutes(app) {
   const staticDirectory = path.join('..', 'client', 'dist');
   const UIRouter = express.static(staticDirectory);
