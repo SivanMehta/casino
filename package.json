@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build --workspace client",
     "start": "npm start --workspace server",
-    "test": "npm run test --workspaces"
+    "test:server": "npm run test --workspace server",
+    "test": "npm run test --workspace"
   },
   "author": "Sivan Mehta",
   "license": "UNLICENSED",
