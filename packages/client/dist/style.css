@@ -29,23 +29,14 @@ text {
   pointer-events: none;
 }
 
+:root {
+  --roulette-spin-amount: 0deg;
+}
+
 .wheel {
   margin-left: 10rem;
   width: 10rem;
   transform-origin: center center;
-}
-
-.spin {
-  animation: 5s ease spin;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    /* derive from a CSS variable so that we can actually spin to the right place*/
-    transform: rotate(3600deg);
-  }
+  transform: rotate(var(--roulette-spin-amount));
+  transition: transform 5s ease;
 }
