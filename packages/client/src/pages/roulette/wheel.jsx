@@ -50,7 +50,6 @@ let spins = 1;
 export function setSpinAngle(result) {
   const index = order.findIndex(e => e == result);
   const rotation = (3600 * ++spins) - (360/38) * index;
-  console.log(result, rotation);
   root.style.setProperty('--roulette-spin-amount', `${rotation}deg`);
   return true;
 }

@@ -27,7 +27,7 @@ export default function Roulette() {
     if(res.ok) {
       const { winnings, result } = await res.json();
       setSpinning(setSpinAngle(result));
-      await timer(5000);
+      await timer(10000);
   
       setUser({ balance: user.balance + winnings });
       setSpinning(false);

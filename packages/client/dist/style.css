@@ -38,5 +38,5 @@ text {
   width: 10rem;
   transform-origin: center center;
   transform: rotate(var(--roulette-spin-amount));
-  transition: transform 5s ease;
+  transition: transform 10s ease;
 }
