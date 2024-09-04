@@ -3,7 +3,7 @@ const reds = new Set(
 );
 
 const categories = {};
-for(let i = 0; i <= 36; i ++) {
+for(let i = 1; i <= 36; i ++) {
   categories[i] = new Set();
   categories[i].add(i);
   if(reds.has(i)) {
@@ -41,6 +41,9 @@ for(let i = 0; i <= 36; i ++) {
   }
 }
 
+// the 0s are not considered in the same way
+categories['0'] = new Set();
+categories['0'].add('0');
 categories['00'] = new Set();
 categories['00'].add('00');
 
