@@ -3,8 +3,9 @@ const reds = new Set(
 );
 
 const categories = {};
-for(let i = 1; i <= 36; i ++) {
+for(let i = 0; i <= 36; i ++) {
   categories[i] = new Set();
+  categories[i].add(i);
   if(reds.has(i)) {
     categories[i].add('RED');
   } else {
@@ -40,6 +41,9 @@ for(let i = 1; i <= 36; i ++) {
   }
 }
 
+categories['00'] = new Set();
+categories['00'].add('00');
+
 const payouts = {
   'RED': 1,
   'BLACK': 1,
@@ -52,7 +56,7 @@ const payouts = {
   'Col1': 2,
   'Col2': 2,
   'Col3': 2,
-}
+};
 
 // spins a roulette wheel and reports on the outcome
 class Wager {
