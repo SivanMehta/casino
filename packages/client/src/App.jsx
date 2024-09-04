@@ -5,6 +5,7 @@ import Roulette from './pages/roulette/index.jsx';
 import Blackjack from './pages/blackjack/index.jsx';
 import Error from './pages/Error.jsx';
 import { UserProvider } from './hooks/useUser.jsx';
+import GameLoader from './hooks/gameLoader';
 
 import {
   createBrowserRouter,
@@ -25,7 +26,14 @@ const router = createBrowserRouter([
   {
     path: "/blackjack",
     element: <Blackjack />,
-    errorElement: <Error />
+    errorElement: <Error />,
+    children: [
+      {
+        path: '/blackjack/:game',
+        element: <Blackjack />,
+        loader: GameLoader('blackjack')
+      }
+    ]
   }
 ]);
 

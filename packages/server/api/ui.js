@@ -6,6 +6,8 @@ export const UIRoutes = [
   '/',
   '/login',
   '/roulette',
+  '/blackjack',
+  '/blackjack/:game',
   '/faq'
 ];
 

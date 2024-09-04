@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, redirect } from 'react-router-dom';
 
 export default function Blackjack() {
+  const { game } = useParams();
+  const [ state, setState ] = useState({});
+
+  if(!game) {
+    return (
+      <Link to='/blackjack/new'>Start New Game</Link>
+    )
+  }
+
   return (
-    <h1>
-      Blackjack!!!
-    </h1>
+    <>
+      <p>
+        Game ID: { game }
+      </p>
+      <pre>{JSON.stringify(state, null, 2)}</pre>
+    </>
   );
 }

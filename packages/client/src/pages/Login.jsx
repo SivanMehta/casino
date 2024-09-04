@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import qs from 'query-string';
 
-function login(formData) {
-  const user = formData.get('user');
-  const password = formData.get('password');
-  alert(`Logging in with, ${user} ${password}`)
-}
-
 const errorCodes = {
   401: 'User not found',
   403: 'Incorrect Credentials'

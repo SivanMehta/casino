@@ -15,7 +15,7 @@ export default function Roulette() {
       .values(wager)
       .reduce((acc, cur) => acc + cur, 0) * 10;
 
-    const res = await fetch('/roulette', {
+    const res = await fetch('/api/roulette', {
       method: 'POST',
       body: JSON.stringify(wager),
       headers: {
