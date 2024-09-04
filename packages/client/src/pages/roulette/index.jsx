@@ -34,7 +34,6 @@ export default function Roulette() {
     } else {
       console.error(await res.status);
     }
-    
   }
 
   return (
