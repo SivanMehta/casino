@@ -1,6 +1,10 @@
 import { decrypt, encrypt } from '../db/auth.js';
 import { spinWheel } from './game-machines/index.js';
 
+async function loadGameState(app, key) {
+  
+}
+
 export function addGameRoutes(app) {
   app.post("/api/roulette", async (req, res) => {
     const {username} = decrypt(req.cookies.auth);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, redirect } from 'react-router-dom';
+import { Link, useParams, redirect, useLoaderData } from 'react-router-dom';
 
 export default function Blackjack() {
   const { game } = useParams();
-  const [ state, setState ] = useState({});
+  const state = useLoaderData();
 
   if(!game) {
     return (

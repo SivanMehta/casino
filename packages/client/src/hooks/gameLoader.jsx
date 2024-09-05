@@ -8,10 +8,19 @@ export default function gameLoader(game) {
       });
       
       const { gameId } = await res.json();
+      return redirect(`/${game}/${gameId}`);
 
-      return redirect(`/${game}/${gameId}`)
-    } else {
-      return null
+    } else if (params.game) {
+      const res = await fetch(`/api/${game}/${params.game}`, {
+        method: 'POST'
+      });
+
+      if(res.ok) {
+        const { state } = await res.json();
+        return { state };
+      } else {
+        console.error(await res.status())
+      }
     }
   }
 }
