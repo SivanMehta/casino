@@ -2,14 +2,13 @@ import { redirect } from 'react-router-dom';
 
 export default function gameLoader(game) {
   return async function({ params }) {
-    console.log(params)
     if(params.id == 'new') {
       const res = await fetch(`/api/${game}/new`, {
         method: 'POST'
       });
       
-      const { gameId } = await res.json();
-      return redirect(`/${game}/${gameId}`);
+      const { id } = await res.json();
+      return redirect(`/${game}/${id}`);
     } else if (params.id) {
       const res = await fetch(`/api/${game}/${params.id}`, {
         method: 'POST'
@@ -19,7 +18,9 @@ export default function gameLoader(game) {
         const { state } = await res.json();
         return state;
       } else {
-        console.error(await res.status());
+        const status = await res.status;
+        console.log(params.id + ' is not a valid game')
+        return redirect('/' + game);
       }
     }
 

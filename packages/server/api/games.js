@@ -1,9 +1,6 @@
 import { decrypt, encrypt } from '../db/auth.js';
-import { spinWheel } from './game-machines/index.js';
-
-async function loadGameState(app, key) {
-  
-}
+import { spinWheel } from './game-machines/roulette.js';
+import Blackjack from './game-machines/blackjack.js';
 
 export function addGameRoutes(app) {
   app.post("/api/roulette", async (req, res) => {
@@ -32,15 +29,21 @@ export function addGameRoutes(app) {
     const { username } = decrypt(req.cookies.auth);
     // start a new game
     if(game == 'new') {
-      const gameId = 123456789; // should be a UUID
-      const hand = { hand: [] };
+      const game = new Blackjack();
+      await game.start();
       
-      app.db.set(`blackjack:${gameId}:${username}`, hand);
-      return res.json({ gameId });
+      app.db.set(`blackjack:${game.id}:${username}`, game);
+      return res.json({ id: game.id });
     }
     
-    // game must already exist
-    const state = app.db.get(`blackjack:${game}:${username}`);
+    // lookup existing game
+    const state = await app.db.get(`blackjack:${game}:${username}`);
+    console.log(state);
+
+    if(!state) {
+      return res.sendStatus(404);
+    }
+
     return res.json({ state });
   });
 }
