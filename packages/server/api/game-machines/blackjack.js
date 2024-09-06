@@ -5,6 +5,7 @@ const API = 'https://www.deckofcardsapi.com/api/';
 export default class Blackjack {
   constructor() {
     this.hand = [];
+    this.dealer = [];
   }
   
   async start() {
@@ -17,4 +18,12 @@ export default class Blackjack {
   async deal(cards) {
 
   }
+}
+
+export function hit(req, res) {
+  
+}
+
+export function stay(req, res) {
+  
 }
