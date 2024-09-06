@@ -40,7 +40,7 @@ export function addGameRoutes(app) {
     }
     
     // game must already exist
-    const hand = app.db.get(`blackjack:${game}:${username}`);
-    return res.json({ hand });
+    const state = app.db.get(`blackjack:${game}:${username}`);
+    return res.json({ state });
   });
 }
