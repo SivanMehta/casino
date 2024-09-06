@@ -1,28 +1,11 @@
 import { decrypt, encrypt } from '../db/auth.js';
 import { spinWheel } from './game-machines/roulette.js';
-import Blackjack, {
-  hit, stay
-} from './game-machines/blackjack.js';
-
-function validateGame(gameType) {
-  return async function (req, res, next) {
-    const { game } = req.params;
-    const { username } = decrypt(req.cookies.auth);
-    const state = await app.db.get(`${gameType}:${game}:${username}`);
-  
-    if(!state) {
-      return res.sendStatus(404);
-    }
-
-    req.gameState = status;
-    next();
-  }
-}
+import { Blackjack, proceed } from './game-machines/blackjack.js';
 
 export function addGameRoutes(app) {
   app.post("/api/roulette", async (req, res) => {
     const { username } = decrypt(req.cookies.auth);
-    const user = await app.db.get('user', username);
+    const user = await app.db.get(`user:${username}`);
     const wager = req.body;
 
     // determine whether user has bet more than they have to balance
@@ -58,9 +41,8 @@ export function addGameRoutes(app) {
     if(!state) {
       return res.sendStatus(404);
     }
-    return res.json({ state });
+    return res.json({ state: state.serialize() });
   });
 
-  app.post('/api/blackjack/:game/hit', hit);
-  app.post('/api/blackjack/:game/stay', stay);
+  app.post('/api/blackjack/:game/move', proceed)
 }
