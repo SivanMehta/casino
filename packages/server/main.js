@@ -10,7 +10,7 @@ import { setup as setupWebSocket } from './db/socket.js';
 const app = express();
 const logger = morgan('dev', {
   stream: {
-    write: line => debug(line)
+    write: line => debug(line.trim())
   }
 })
 app.use(logger);

@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run build --workspace client",
     "start": "npm start --workspace server",
+    "start:verbose": "DEBUG=api-entry,cards,express,blackjack,roulette npm start",
     "test:server": "npm run test --workspace server",
     "test": "npm run test --workspace"
   },
