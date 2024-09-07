@@ -20,8 +20,15 @@ export function setup(app) {
   addGameRoutes(app);
 
   // debugging routes
-  app.get("/_debug", (req, res) => {
-    const dump = Object.fromEntries(app.db.db);
+  app.get("/_debug", async (req, res) => {
+    const dump = {};
+    app.db.db.forEach((value, key) => {
+      if(key.startsWith('user')) {
+        dump[key] = value;
+      } else if(key.startsWith('blackjack')) {
+        dump[key] = value.serialize();
+      }
+    })
     res.send(dump);
   });
 }

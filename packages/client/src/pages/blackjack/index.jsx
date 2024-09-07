@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, redirect, useLoaderData } from 'react-router-dom';
+import Hand from './Hand.jsx';
 
 export default function Blackjack() {
   const { id } = useParams();
-  const state = useLoaderData();
+  const { state } = useLoaderData();
 
   if(!id) {
     return (
@@ -11,11 +12,16 @@ export default function Blackjack() {
     )
   }
 
+  if(state == 'start') {
+    return (
+      <p>
+        Place your bets!
+      </p>
+    )
+  }
+
   return (
     <>
-      <p>
-        Game ID: { id }
-      </p>
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </>
   );

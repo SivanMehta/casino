@@ -11,7 +11,7 @@ export default function gameLoader(game) {
       const res = await fetch(`/api/${game}/${params.id}`);
 
       if(res.ok) {
-        const { state } = await res.json();
+        const state = await res.json();
         return state;
       } else {
         const status = await res.status;

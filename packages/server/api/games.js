@@ -25,23 +25,23 @@ export function addGameRoutes(app) {
   });
 
   app.get('/api/blackjack/:game', async (req, res) => {
-    const { game } = req.params;
+    const gameId = req.params.game;
     const { username } = decrypt(req.cookies.auth);
     // start a new game
-    if(game == 'new') {
+    if(gameId == 'new') {
       const game = new Blackjack();
-      await game.start();
+      await game.getDeck();
       
       app.db.set(`blackjack:${game.id}:${username}`, game);
-      return res.json(game);
+      return res.json(game.serialize());
     }
     
     // lookup existing game
-    const state = await app.db.get(`blackjack:${game}:${username}`);
-    if(!state) {
+    const game = await app.db.get(`blackjack:${gameId}:${username}`);
+    if(!game) {
       return res.sendStatus(404);
     }
-    return res.json({ state: state.serialize() });
+    return res.json(game.serialize());
   });
 
   app.post('/api/blackjack/:game/move', proceed)
