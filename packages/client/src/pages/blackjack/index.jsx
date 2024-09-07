@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, redirect, useLoaderData } from 'react-router-dom';
+import { Link,
+  useLoaderData,
+  useNavigate,
+  useParams,
+  redirect,
+ } from 'react-router-dom';
 import Hand from './Hand.jsx';
+import Betting from './Betting.jsx';
 
 export default function Blackjack() {
   const { id } = useParams();
-  const { state } = useLoaderData();
+  const game = useLoaderData();
+
+  async function performAction(data) {
+    const res = await fetch(`/api/blackjack/${id}/move`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    if(res.ok) {
+      useNavigate(0);
+    }
+  }
 
   if(!id) {
     return (
@@ -12,17 +31,15 @@ export default function Blackjack() {
     )
   }
 
-  if(state == 'start') {
+  if(game.state == 'start') {
     return (
-      <p>
-        Place your bets!
-      </p>
+      <Betting performAction={performAction} /> 
     )
   }
 
   return (
     <>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
+      <pre>{JSON.stringify(game, null, 2)}</pre>
     </>
   );
 }

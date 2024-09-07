@@ -14,6 +14,10 @@ export function setup(app) {
   app.use(express.json())
   app.use(express.urlencoded());
   app.use(cookies());
+  app.use((req, res, next) => {
+    req.app = app;
+    next();
+  })
 
   // application level routes
   addUIRoutes(app);

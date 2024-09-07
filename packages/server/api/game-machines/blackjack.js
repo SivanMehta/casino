@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { decrypt } from '../../db/auth.js';
 import { drawFromDeck, API } from './cards.js';
 import JSM from 'javascript-state-machine';
 
@@ -50,11 +51,12 @@ export class Blackjack {
 
   wager(bet) {
     this.bet = bet;
+    this.stateMachine.deal();
   }
 
   async deal() {
     const cards = await drawFromDeck(this.id, 3);
-    
+
     this.hand.push(cards[0], cards[1]);
     this.dealer.push(cards[2]);
   }
@@ -89,11 +91,11 @@ export class Blackjack {
 
   bust() {
     // remove 
-    console.log('You Lose =(((')
+    console.log('You Lose =(((');
   }
 
   win() {
-    console.log('You win =)))')
+    console.log('You win =)))');
   }
 
   serialize() {
@@ -114,11 +116,22 @@ export class Blackjack {
   }
 }
 
-export function proceed(req, res) {
-  // lookup game, unserialize game
-  // transition between game states given the player's move
+export async function proceed(req, res) {
+  const gameId = req.params.game;
+  const { username } = decrypt(req.cookies.auth);
+  // lookup existing game
+  const game = await req.app.db.get(`blackjack:${gameId}:${username}`);
+  if(!game) {
+    return res.sendStatus(404);
+  }
+
+  const { data, transition } = req.body;
+  console.log(`Performing a ${transition} on blackjack#${game.id}`);
+  if(game.stateMachine.can(transition)) {
+    game.stateMachine[transition](data);
+  } else {
+    return res.sendStatus(405);
+  }
   
-  // perhaps use a state machine to help determine gameplay loop
-  // https://www.npmjs.com/package/javascript-state-machine
-  res.send(200);
+  return res.json(game.serialize());
 }

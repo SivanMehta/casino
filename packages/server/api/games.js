@@ -41,7 +41,7 @@ export function addGameRoutes(app) {
     if(!game) {
       return res.sendStatus(404);
     }
-    return res.json(game.serialize());
+    return 
   });
 
   app.post('/api/blackjack/:game/move', proceed)
