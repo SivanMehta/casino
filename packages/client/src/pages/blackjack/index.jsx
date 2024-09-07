@@ -4,9 +4,9 @@ import { Link,
   useNavigate,
   useParams,
   redirect,
- } from 'react-router-dom';
-import Hand from './Hand.jsx';
+} from 'react-router-dom';
 import Betting from './Betting.jsx';
+import Playing from './Playing.jsx';
 
 export default function Blackjack() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ export default function Blackjack() {
       body: JSON.stringify(data)
     });
     if(res.ok) {
-      useNavigate(0);
+      location.reload();
     }
   }
 
@@ -34,6 +34,15 @@ export default function Blackjack() {
   if(game.state == 'start') {
     return (
       <Betting performAction={performAction} /> 
+    )
+  }
+
+  if(game.state == 'playing') {
+    return (
+      <Playing
+        hand={game.hand}
+        dealer={game.dealer}
+        performAction={performAction} />
     )
   }
 

@@ -1,10 +1,16 @@
-export const API = 'https://www.deckofcardsapi.com/api/';
+import DEBUG from 'debug';
+const debug = DEBUG('cards')
+export const API = 'https://www.deckofcardsapi.com/api';
 
 export async function drawFromDeck(id, count) {
-  const res = await fetch(
-    `${API}/deck/${id}/draw/?count=${count}`
-  );
-  const { cards } = await res.json();
-  const values = cards.map(card => card.code);
-  return values;
+  const url = `${API}/deck/${id}/draw/?count=${count}`;
+  debug(url)
+  const res = await fetch(url);
+  if(res.ok) {
+    const { cards } = await res.json();
+    const values = cards.map(card => card.code);
+    return values;
+  } else {
+    console.error(await res.text())
+  }
 }

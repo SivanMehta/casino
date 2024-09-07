@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import { decrypt } from '../../db/auth.js';
 import { drawFromDeck, API } from './cards.js';
 import JSM from 'javascript-state-machine';
+import Debug from 'debug';
+const debug = Debug('blackjack')
 
 function countHand(hand) {
   const count = hand
@@ -17,12 +19,13 @@ export class Blackjack {
     if(opts) {
       Object.assign({}, this, opts);
     }
-
+    
+    this.wager = this.wager.bind(this);
     this.stateMachine = new JSM({
       init: 'start',
       transitions: [
-        { name: 'wager', from: 'start', to: 'wagering' },
-        { name: 'deal',  from: 'wagering', to: 'playing'},
+        { name: 'wager', from: 'start', to: 'playing' },
+        { name: 'deal',  from: 'playing', to: 'playing'},
         { name: 'hit',   from: 'playing', to: 'playing' },
         { name: 'stand', from: 'playing', to: 'playing' },
         // tie just restarts the game
@@ -40,22 +43,21 @@ export class Blackjack {
         onBust: this.bust,
         onWin: this.win
       }
-    })
+    });
   }
 
   async getDeck() {
-    const newDeck = await fetch(API + 'deck/new/shuffle/?deck_count=6');
+    const newDeck = await fetch(API + '/deck/new/shuffle/?deck_count=6');
     const data = await newDeck.json();
     this.id = data.deck_id;
   }
 
-  wager(bet) {
+  async wager(transition, bet) {
+    // lock in the wager and then deal out the initial hand
     this.bet = bet;
-    this.stateMachine.deal();
-  }
-
-  async deal() {
+    
     const cards = await drawFromDeck(this.id, 3);
+    debug('post-wager:', cards);
 
     this.hand.push(cards[0], cards[1]);
     this.dealer.push(cards[2]);
@@ -102,7 +104,7 @@ export class Blackjack {
     // we don't want to reveal the dealer's card until the game is over
     let dealer = [];
     if(this.stateMachine.state != 'gameover') {
-      dealer = this.dealer.splice(0, 1);
+      dealer = this.dealer.slice(0, 1);
     } else {
       dealer = this.dealer;
     }
@@ -126,7 +128,7 @@ export async function proceed(req, res) {
   }
 
   const { data, transition } = req.body;
-  console.log(`Performing a ${transition} on blackjack#${game.id}`);
+  debug(`Performing a ${transition} on blackjack#${game.id}`);
   if(game.stateMachine.can(transition)) {
     game.stateMachine[transition](data);
   } else {

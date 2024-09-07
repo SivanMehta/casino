@@ -35,13 +35,14 @@ export function addGameRoutes(app) {
       app.db.set(`blackjack:${game.id}:${username}`, game);
       return res.json(game.serialize());
     }
+
     
     // lookup existing game
     const game = await app.db.get(`blackjack:${gameId}:${username}`);
     if(!game) {
       return res.sendStatus(404);
     }
-    return 
+    return res.json(game.serialize());
   });
 
   app.post('/api/blackjack/:game/move', proceed)
