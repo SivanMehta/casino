@@ -1,6 +1,8 @@
 import express from 'express';
 import cookies from 'cookie-parser';
 import path from 'path';
+import DEBUG from 'debug';
+const debug = DEBUG('api-entry');
 
 import Connection from '../db/connection.js';
 import { addUIRoutes } from './ui.js';
@@ -25,6 +27,7 @@ export function setup(app) {
 
   // debugging routes
   app.get("/_debug", async (req, res) => {
+    debug('dumping DB')
     const dump = {};
     app.db.db.forEach((value, key) => {
       if(key.startsWith('user')) {
