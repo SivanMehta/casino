@@ -124,6 +124,7 @@ export async function proceed(req, res) {
   // lookup existing game
   const game = await req.app.db.get(`blackjack:${gameId}:${username}`);
   if(!game) {
+    debug(`Misplaced game#${gameId}`);
     return res.sendStatus(404);
   }
 
