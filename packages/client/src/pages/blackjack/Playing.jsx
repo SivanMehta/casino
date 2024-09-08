@@ -1,13 +1,14 @@
 import React from 'react';
+import Hand from './Hand.jsx';
 
 export default function Playing({ hand, dealer, performAction}) {
   return (
     <div>
       <pre>
-        { JSON.stringify(dealer)}
+        <Hand cards={dealer} dealer={true}/>
       </pre>
       <pre>
-        { JSON.stringify(hand)}
+      <Hand cards={hand}/>
       </pre>
     </div>
   )
