@@ -4,12 +4,11 @@ import Hand from './Hand.jsx';
 export default function Playing({ hand, dealer, performAction}) {
   return (
     <div>
-      <pre>
-        <Hand cards={dealer} dealer={true}/>
-      </pre>
-      <pre>
+      <Hand cards={dealer} dealer={true}/>
       <Hand cards={hand}/>
-      </pre>
+      <div>
+        <button>Hit</button><button>Stand</button>
+      </div>
     </div>
   )
 }
