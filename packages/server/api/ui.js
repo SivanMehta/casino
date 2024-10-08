@@ -6,6 +6,8 @@ export const UIRoutes = [
   '/',
   '/login',
   '/roulette',
+  '/blackjack',
+  '/blackjack/:game',
   '/faq'
 ];
 
@@ -19,7 +21,7 @@ export function addUIRoutes(app) {
   app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
-    const user = await app.db.get('user', `${username}`);
+    const user = await app.db.get(`user:${username}`);
     if(!user) {
       return res.redirect("/?error=401");
     }

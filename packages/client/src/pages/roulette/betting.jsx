@@ -18,7 +18,6 @@ function Bet({ value }) {
 }
 
 function ChipDirection({ enabled, onChange }) {
-
   const label = enabled ? "Adding Chips" : "Removing Chips"
 
   return (

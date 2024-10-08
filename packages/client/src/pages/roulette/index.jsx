@@ -15,7 +15,7 @@ export default function Roulette() {
       .values(wager)
       .reduce((acc, cur) => acc + cur, 0) * 10;
 
-    const res = await fetch('/roulette', {
+    const res = await fetch('/api/roulette', {
       method: 'POST',
       body: JSON.stringify(wager),
       headers: {
@@ -27,14 +27,13 @@ export default function Roulette() {
     if(res.ok) {
       const { winnings, result } = await res.json();
       setSpinning(setSpinAngle(result));
-      await timer(5000);
+      await timer(10000);
   
       setUser({ balance: user.balance + winnings });
       setSpinning(false);
     } else {
       console.error(await res.status);
     }
-    
   }
 
   return (
