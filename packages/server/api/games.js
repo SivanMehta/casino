@@ -1,6 +1,7 @@
 import { decrypt, encrypt } from '../db/auth.js';
 import { spinWheel } from './game-machines/roulette.js';
 import { Blackjack, proceed } from './game-machines/blackjack.js';
+import { Kaboom } from './game-machines/kaboom.js';
 
 export function addGameRoutes(app) {
   app.post("/api/roulette", async (req, res) => {
@@ -45,5 +46,25 @@ export function addGameRoutes(app) {
     return res.json(game.serialize());
   });
 
-  app.post('/api/blackjack/:game/move', proceed)
+  app.post('/api/blackjack/:game/move', proceed);
+
+  app.get('/api/kaboom/:game', async (req, res) => {
+    const gameId = req.params.game;
+    const { username } = decrypt(req.cookies.auth);
+    // start a new game
+    if(gameId == 'new') {
+      const game = new Kaboom();
+      await game.getDeck();
+      
+      app.db.set(`kaboom:${game.id}:${username}`, game);
+      return res.json(game.serialize());
+    }
+
+    // lookup existing game
+    const game = await app.db.get(`kaboom:${gameId}:${username}`);
+    if(!game) {
+      return res.sendStatus(404);
+    }
+    return res.json(game.serialize());
+  });
 }

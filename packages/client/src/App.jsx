@@ -3,6 +3,7 @@ import Landing from './pages/Landing.jsx';
 import { Logout } from './pages/Login.jsx';
 import Roulette from './pages/roulette/index.jsx';
 import Blackjack from './pages/blackjack/index.jsx';
+import Kaboom from './pages/kaboom/index.jsx';
 import { UserProvider } from './hooks/useUser.jsx';
 import GameLoader from './hooks/gameLoader.jsx';
 
@@ -28,7 +29,16 @@ const router = createBrowserRouter([
     path: "/blackjack/:id",
     element: <Blackjack />,
     loader: GameLoader('blackjack')
-  }
+  },
+  {
+    path: "/kaboom/",
+    element: <Kaboom />,
+  },
+  {
+    path: "/kaboom/:id",
+    element: <Kaboom />,
+    loader: GameLoader('kaboom')
+  },
 ]);
 
 function App() {

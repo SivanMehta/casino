@@ -3,7 +3,7 @@ import { decrypt } from '../../db/auth.js';
 import { drawFromDeck, API } from './cards.js';
 import JSM from 'javascript-state-machine';
 import Debug from 'debug';
-const debug = Debug('blackjack')
+const debug = Debug('blackjack');
 
 function countHand(hand) {
   const count = hand
